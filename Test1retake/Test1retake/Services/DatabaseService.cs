@@ -16,18 +16,29 @@ namespace Test1retake.Services
             _configuration = configuration.GetConnectionString("PjatkDbConnection");
         }
 
-        public async Task<bool> DeleteMusicianAsync(int delMusician)
+        public async Task<bool> CheckIfMusicianExists(int delMusician)
         {
-            
 
             using var connection = new SqlConnection(_configuration);
-            var command = new SqlCommand("select iif(count(1) > 0, 1, 0) from ", connection);
-            command.Parameters.AddWithValue("@albumId", delMusician);
+            var command = new SqlCommand("select iif(count(1) > 0, 1, 0) from Musician_Track, Track where Musician_Track.IdTrack = Track.IdTrack and Musician_Track.IdMusician = @delMusician", connection);
+            command.Parameters.AddWithValue("@delMusician", delMusician);
 
             await connection.OpenAsync();
-            var reader = await command.ExecuteReaderAsync();
+            var result = await command.ExecuteNonQueryAsync();
+            if (result == 0)
+            {
+                return false;
+            }
 
+            return true;
+        }
 
+        public async Task<bool> DeleteMusicianAsync(int delMusician)
+        {
+            if (!await CheckIfMusicianExists(delMusician))
+            {
+                return false;
+            }
             return true;
         }
 

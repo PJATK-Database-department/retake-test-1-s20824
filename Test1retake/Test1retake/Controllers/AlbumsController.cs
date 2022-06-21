@@ -27,7 +27,11 @@ namespace Test1retake.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteMusicianAsync([FromQuery]int delMusician)
         {
-
+            var result = await _service.DeleteMusicianAsync(delMusician);
+            if (result == false)
+            {
+                return BadRequest("Cannot delete this person");
+            }
             return NoContent();
         }
     }

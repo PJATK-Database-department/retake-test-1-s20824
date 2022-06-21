@@ -10,5 +10,6 @@ namespace Test1retake.Services
     {
         Task<ICollection<AlbumDto>> GetAlbumsAsync(int albumId);
         Task<bool> DeleteMusicianAsync(int delMusician);
+        Task<bool> CheckIfMusicianExists(int delMusician);
     }
 }
