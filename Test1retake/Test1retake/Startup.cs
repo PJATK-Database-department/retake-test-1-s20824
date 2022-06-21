@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Test1retake.Services;
 
 namespace Test1retake
 {
@@ -26,7 +27,7 @@ namespace Test1retake
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<IDatabaseService, DatabaseService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
