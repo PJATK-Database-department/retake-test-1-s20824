@@ -17,5 +17,18 @@ namespace Test1retake.Controllers
         {
             _service = service;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAlbumsAsync([FromQuery] int albumId)
+        {
+            var albums = _service.GetAlbumsAsync(albumId);
+
+            return Ok(albums);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteMusicianAsync([FromQuery]int delMusician)
+        {
+
+            return NoContent();
+        }
     }
 }
