@@ -35,10 +35,17 @@ namespace Test1retake.Services
 
         public async Task<bool> DeleteMusicianAsync(int delMusician)
         {
+            using var connection = new SqlConnection(_configuration);
+            await connection.OpenAsync();
+
             if (!await CheckIfMusicianExists(delMusician))
             {
                 return false;
             }
+            
+            var command = new SqlCommand("delete from Musician where IdMusician = @delMusician", connection);
+            command.Parameters.AddWithValue("@delMusician", delMusician);
+
             return true;
         }
 
