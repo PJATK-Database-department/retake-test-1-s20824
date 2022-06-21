@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Test1retake.Services
 {
-    interface IDatabaseService
+    public interface IDatabaseService
     {
     }
 }
